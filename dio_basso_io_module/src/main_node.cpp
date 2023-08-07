@@ -51,6 +51,11 @@ class DIOBassoModbus: public rclcpp::Node
             modbus_write_registers(modbus_, 0, 1, send_registers);
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
+            modbus_write_register(modbus_, 2, 0);
+            modbus_write_register(modbus_, 6, 0);
+            modbus_write_register(modbus_, 10, 0);
+            modbus_write_register(modbus_, 14, 0);
+
             auto period = std::chrono::duration<double>(1.0 / this->get_parameter("rate").as_double());
             timer_ = this->create_wall_timer(period, std::bind(&DIOBassoModbus::timer_callback, this));
             RCLCPP_INFO(this->get_logger(), "Initialized...");
